@@ -15,49 +15,60 @@ import {
   MessagesSquare,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
+  const location = useLocation();
+  
   const navigation = [
     { 
       name: 'Главная', 
       icon: Home, 
-      active: true 
+      path: '/',
     },
     { 
       name: 'Панель аккаунтов', 
-      icon: Users 
+      icon: Users,
+      path: '/accounts'
     },
     { 
       name: 'Действие с аккаунтом', 
-      icon: UserCog 
+      icon: UserCog,
+      path: '/actions'
     },
     { 
       name: 'Авторегистрация', 
-      icon: UserPlus 
+      icon: UserPlus,
+      path: '/registration'
     },
     { 
       name: 'Сбор аудитории', 
-      icon: UserCheck 
+      icon: UserCheck,
+      path: '/audience'
     },
     { 
       name: 'Инвайт', 
-      icon: MessagesSquare 
+      icon: MessagesSquare,
+      path: '/invite'
     },
     { 
       name: 'Отправка СМС', 
-      icon: Mail 
+      icon: Mail,
+      path: '/sms'
     },
     { 
       name: 'Прокси', 
-      icon: Network 
+      icon: Network,
+      path: '/proxy'
     },
     {
       name: 'Удаленные',
       icon: Trash2,
+      path: '/deleted',
       submenu: [
-        { name: 'Архив', icon: Archive },
-        { name: 'Вечный спамблок', icon: Shield },
-        { name: 'Активные аккаунты', icon: CheckCircle },
+        { name: 'Архив', icon: Archive, path: '/deleted/archive' },
+        { name: 'Вечный спамблок', icon: Shield, path: '/deleted/spam' },
+        { name: 'Активные аккаунты', icon: CheckCircle, path: '/deleted/active' },
       ]
     }
   ];
@@ -72,25 +83,31 @@ const Sidebar = () => {
       <nav className="mt-8 px-3 space-y-1">
         {navigation.map((item) => (
           <div key={item.name}>
-            <a
-              href="#"
-              className={cn('nav-link', item.active && 'active')}
+            <Link
+              to={item.path}
+              className={cn(
+                'nav-link',
+                location.pathname === item.path && 'active'
+              )}
             >
               <item.icon className="h-5 w-5" />
               {item.name}
-            </a>
+            </Link>
             
             {item.submenu && (
               <div className="ml-6 mt-1 space-y-1">
                 {item.submenu.map((subItem) => (
-                  <a
+                  <Link
                     key={subItem.name}
-                    href="#"
-                    className="nav-link text-sm"
+                    to={subItem.path}
+                    className={cn(
+                      'nav-link text-sm',
+                      location.pathname === subItem.path && 'active'
+                    )}
                   >
                     <subItem.icon className="h-4 w-4" />
                     {subItem.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
@@ -99,10 +116,10 @@ const Sidebar = () => {
       </nav>
 
       <div className="absolute bottom-8 w-full px-3">
-        <a href="#" className="nav-link">
+        <Link to="/settings" className="nav-link">
           <Settings className="h-5 w-5" />
           Настройки
-        </a>
+        </Link>
       </div>
     </aside>
   );
