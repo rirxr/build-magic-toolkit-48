@@ -3,10 +3,10 @@ import { ArrowUpRight } from 'lucide-react';
 
 export const Stats = () => {
   const stats = [
-    { label: 'Total Sales', value: '$53,000', change: '+55%' },
-    { label: 'Visitors', value: '2,300', change: '+5%' },
-    { label: 'Orders', value: '3,052', change: '+25%' },
-    { label: 'Revenue', value: '$173,000', change: '+15%' },
+    { label: 'Всего аккаунтов', value: '128', change: '+12%' },
+    { label: 'Активные', value: '86', change: '+5%' },
+    { label: 'В спаме', value: '23', change: '+8%' },
+    { label: 'Заблокированные', value: '19', change: '+2%' },
   ];
 
   return (
