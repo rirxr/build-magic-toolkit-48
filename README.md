@@ -1,8 +1,44 @@
+
 # Welcome to your Lovable project
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/a859e69c-3882-46ff-b0e6-33388074801a
+
+## Быстрая установка для Windows
+
+1. Создайте файл `install.bat` в корне вашего диска C: и скопируйте в него следующий код:
+
+```batch
+@echo off
+echo Installing Telegram Manager...
+
+:: Установка Node.js через winget
+winget install OpenJS.NodeJS
+
+:: Установка Git через winget
+winget install Git.Git
+
+:: Обновление npm до последней версии
+call npm install -g npm@latest
+
+:: Клонирование репозитория
+git clone <YOUR_GIT_URL> telegram-manager
+cd telegram-manager
+
+:: Установка зависимостей
+call npm install
+
+:: Запуск приложения
+call npm run dev
+
+echo Installation complete! The application should now be running at http://localhost:8080
+pause
+```
+
+2. Запустите файл `install.bat` от имени администратора (правый клик -> Запуск от имени администратора)
+3. Дождитесь завершения установки
+4. Приложение автоматически запустится в вашем браузере по адресу http://localhost:8080
 
 ## How can I edit this code?
 
