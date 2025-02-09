@@ -11,9 +11,9 @@ const Index = () => {
       <main className="pl-64">
         <div className="container py-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
+            <h1 className="text-3xl font-bold">Панель управления</h1>
             <p className="mt-2 text-muted-foreground">
-              Welcome back, let's look at your stats
+              Обзор аккаунтов Telegram
             </p>
           </div>
           
