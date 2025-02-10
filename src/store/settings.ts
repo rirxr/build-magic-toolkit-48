@@ -21,7 +21,8 @@ export const useSettings = create<SettingsState>()(
       licenseKey: '',
       dataDirectory: '',
       setTheme: (theme) => {
-        document.documentElement.className = theme;
+        document.documentElement.classList.remove('light', 'dark');
+        document.documentElement.classList.add(theme);
         set({ theme });
       },
       setLanguage: (language) => {
