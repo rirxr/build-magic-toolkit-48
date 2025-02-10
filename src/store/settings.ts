@@ -20,8 +20,14 @@ export const useSettings = create<SettingsState>()(
       language: 'ru',
       licenseKey: '',
       dataDirectory: '',
-      setTheme: (theme) => set({ theme }),
-      setLanguage: (language) => set({ language }),
+      setTheme: (theme) => {
+        document.documentElement.className = theme;
+        set({ theme });
+      },
+      setLanguage: (language) => {
+        document.documentElement.setAttribute('lang', language);
+        set({ language });
+      },
       setLicenseKey: (licenseKey) => set({ licenseKey }),
       setDataDirectory: (dataDirectory) => set({ dataDirectory }),
     }),

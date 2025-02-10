@@ -20,11 +20,12 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const { theme } = useSettings();
+  const { theme, language } = useSettings();
 
   useEffect(() => {
     document.documentElement.className = theme;
-  }, [theme]);
+    document.documentElement.setAttribute('lang', language);
+  }, [theme, language]);
 
   return (
     <QueryClientProvider client={queryClient}>
