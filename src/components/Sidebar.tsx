@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
+import { SettingsDrawer } from './SettingsDrawer';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -116,10 +117,7 @@ const Sidebar = () => {
       </nav>
 
       <div className="absolute bottom-8 w-full px-3">
-        <Link to="/settings" className="nav-link">
-          <Settings className="h-5 w-5" />
-          Настройки
-        </Link>
+        <SettingsDrawer />
       </div>
     </aside>
   );

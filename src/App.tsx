@@ -4,6 +4,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useSettings } from "@/store/settings";
 import Index from "./pages/Index";
 import Accounts from "./pages/Accounts";
 import AccountActions from "./pages/AccountActions";
@@ -17,27 +19,35 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/accounts" element={<Accounts />} />
-          <Route path="/actions" element={<AccountActions />} />
-          <Route path="/registration" element={<Registration />} />
-          <Route path="/audience" element={<Audience />} />
-          <Route path="/invite" element={<Invite />} />
-          <Route path="/sms" element={<SMS />} />
-          <Route path="/proxy" element={<Proxy />} />
-          <Route path="/deleted/*" element={<Deleted />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const { theme } = useSettings();
+
+  useEffect(() => {
+    document.documentElement.className = theme;
+  }, [theme]);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/accounts" element={<Accounts />} />
+            <Route path="/actions" element={<AccountActions />} />
+            <Route path="/registration" element={<Registration />} />
+            <Route path="/audience" element={<Audience />} />
+            <Route path="/invite" element={<Invite />} />
+            <Route path="/sms" element={<SMS />} />
+            <Route path="/proxy" element={<Proxy />} />
+            <Route path="/deleted/*" element={<Deleted />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
