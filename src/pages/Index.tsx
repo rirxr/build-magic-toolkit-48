@@ -4,14 +4,18 @@ import { Stats } from "@/components/Stats";
 import { Chart } from "@/components/Chart";
 import { Projects } from "@/components/Projects";
 import { useSettings } from "@/store/settings";
+import { cn } from "@/lib/utils";
 
 const Index = () => {
-  const { language } = useSettings();
+  const { language, isSidebarCollapsed } = useSettings();
 
   return (
     <div className="min-h-screen">
       <Sidebar />
-      <main className="pl-64">
+      <main className={cn(
+        "transition-all duration-300",
+        isSidebarCollapsed ? "pl-20" : "pl-64"
+      )}>
         <div className="container py-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold">

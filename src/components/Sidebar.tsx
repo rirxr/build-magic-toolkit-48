@@ -13,13 +13,18 @@ import {
   UserCog,
   UserCheck,
   MessagesSquare,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
 import { SettingsDrawer } from './SettingsDrawer';
+import { useSettings } from '@/store/settings';
+import { Button } from './ui/button';
 
 const Sidebar = () => {
   const location = useLocation();
+  const { isSidebarCollapsed, toggleSidebar } = useSettings();
   
   const navigation = [
     { 
@@ -75,51 +80,85 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 animate-slideIn border-r border-white/10 bg-card overflow-y-auto">
-      <div className="flex h-16 items-center gap-2 px-6 border-b border-white/10">
-        <div className="h-8 w-8 rounded-full bg-primary"></div>
-        <span className="text-lg font-semibold">Telegram Manager</span>
-      </div>
-      
-      <nav className="mt-8 px-3 space-y-1">
-        {navigation.map((item) => (
-          <div key={item.name}>
-            <Link
-              to={item.path}
-              className={cn(
-                'nav-link',
-                location.pathname === item.path && 'active'
+    <>
+      <aside 
+        className={cn(
+          "fixed left-0 top-0 z-40 h-screen border-r border-white/10 bg-card transition-all duration-300",
+          isSidebarCollapsed ? "w-20" : "w-64"
+        )}
+      >
+        <div className={cn(
+          "flex h-16 items-center border-b border-white/10",
+          isSidebarCollapsed ? "justify-center px-2" : "gap-2 px-6"
+        )}>
+          <div className="h-8 w-8 rounded-full bg-primary shrink-0"></div>
+          {!isSidebarCollapsed && <span className="text-lg font-semibold">Telegram Manager</span>}
+        </div>
+        
+        <nav className={cn(
+          "mt-8 space-y-1",
+          isSidebarCollapsed ? "px-2" : "px-3"
+        )}>
+          {navigation.map((item) => (
+            <div key={item.name}>
+              <Link
+                to={item.path}
+                className={cn(
+                  'nav-link',
+                  location.pathname === item.path && 'active',
+                  isSidebarCollapsed && 'justify-center'
+                )}
+                title={isSidebarCollapsed ? item.name : undefined}
+              >
+                <item.icon className="h-5 w-5 shrink-0" />
+                {!isSidebarCollapsed && <span>{item.name}</span>}
+              </Link>
+              
+              {!isSidebarCollapsed && item.submenu && (
+                <div className="ml-6 mt-1 space-y-1">
+                  {item.submenu.map((subItem) => (
+                    <Link
+                      key={subItem.name}
+                      to={subItem.path}
+                      className={cn(
+                        'nav-link text-sm',
+                        location.pathname === subItem.path && 'active'
+                      )}
+                    >
+                      <subItem.icon className="h-4 w-4" />
+                      {subItem.name}
+                    </Link>
+                  ))}
+                </div>
               )}
-            >
-              <item.icon className="h-5 w-5" />
-              {item.name}
-            </Link>
-            
-            {item.submenu && (
-              <div className="ml-6 mt-1 space-y-1">
-                {item.submenu.map((subItem) => (
-                  <Link
-                    key={subItem.name}
-                    to={subItem.path}
-                    className={cn(
-                      'nav-link text-sm',
-                      location.pathname === subItem.path && 'active'
-                    )}
-                  >
-                    <subItem.icon className="h-4 w-4" />
-                    {subItem.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </nav>
+            </div>
+          ))}
+        </nav>
 
-      <div className="absolute bottom-8 w-full px-3">
-        <SettingsDrawer />
-      </div>
-    </aside>
+        <div className={cn(
+          "absolute bottom-8 w-full",
+          isSidebarCollapsed ? "px-2" : "px-3"
+        )}>
+          <SettingsDrawer />
+        </div>
+      </aside>
+
+      <Button
+        variant="ghost"
+        size="icon"
+        className={cn(
+          "fixed top-3 z-50 transition-all duration-300",
+          isSidebarCollapsed ? "left-24" : "left-64"
+        )}
+        onClick={toggleSidebar}
+      >
+        {isSidebarCollapsed ? (
+          <ChevronRight className="h-4 w-4" />
+        ) : (
+          <ChevronLeft className="h-4 w-4" />
+        )}
+      </Button>
+    </>
   );
 };
 

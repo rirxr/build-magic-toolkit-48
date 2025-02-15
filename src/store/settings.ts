@@ -7,10 +7,12 @@ interface SettingsState {
   language: 'ru' | 'en';
   licenseKey: string;
   dataDirectory: string;
+  isSidebarCollapsed: boolean;
   setTheme: (theme: 'light' | 'dark') => void;
   setLanguage: (language: 'ru' | 'en') => void;
   setLicenseKey: (key: string) => void;
   setDataDirectory: (path: string) => void;
+  toggleSidebar: () => void;
 }
 
 export const useSettings = create<SettingsState>()(
@@ -20,6 +22,7 @@ export const useSettings = create<SettingsState>()(
       language: 'ru',
       licenseKey: '',
       dataDirectory: '',
+      isSidebarCollapsed: false,
       setTheme: (theme) => {
         document.documentElement.classList.remove('light', 'dark');
         document.documentElement.classList.add(theme);
@@ -31,6 +34,7 @@ export const useSettings = create<SettingsState>()(
       },
       setLicenseKey: (licenseKey) => set({ licenseKey }),
       setDataDirectory: (dataDirectory) => set({ dataDirectory }),
+      toggleSidebar: () => set((state) => ({ isSidebarCollapsed: !state.isSidebarCollapsed })),
     }),
     {
       name: 'settings-storage',
