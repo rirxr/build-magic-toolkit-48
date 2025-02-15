@@ -4,6 +4,8 @@ import Sidebar from "@/components/Sidebar";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { useSettings } from "@/store/settings";
+import { cn } from "@/lib/utils";
 
 const DeletedAccounts = () => {
   const accounts = [
@@ -48,11 +50,15 @@ const DeletedAccounts = () => {
 
 const Deleted = () => {
   const navigate = useNavigate();
+  const { isSidebarCollapsed } = useSettings();
 
   return (
     <div className="min-h-screen">
       <Sidebar />
-      <main className="pl-64">
+      <main className={cn(
+        "transition-all duration-300",
+        isSidebarCollapsed ? "pl-20" : "pl-64"
+      )}>
         <div className="container py-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold">Удаленные аккаунты</h1>

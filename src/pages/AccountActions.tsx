@@ -3,8 +3,11 @@ import Sidebar from "@/components/Sidebar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessagesSquare, UserCheck, Mail, Shield } from "lucide-react";
+import { useSettings } from "@/store/settings";
+import { cn } from "@/lib/utils";
 
 const AccountActions = () => {
+  const { isSidebarCollapsed } = useSettings();
   const actions = [
     {
       title: 'Отправка сообщений',
@@ -31,7 +34,10 @@ const AccountActions = () => {
   return (
     <div className="min-h-screen">
       <Sidebar />
-      <main className="pl-64">
+      <main className={cn(
+        "transition-all duration-300",
+        isSidebarCollapsed ? "pl-20" : "pl-64"
+      )}>
         <div className="container py-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold">Действия с аккаунтом</h1>

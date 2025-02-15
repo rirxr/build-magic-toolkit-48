@@ -6,8 +6,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { useSettings } from "@/store/settings";
+import { cn } from "@/lib/utils";
 
 const Proxy = () => {
+  const { isSidebarCollapsed } = useSettings();
   const proxies = [
     { 
       ip: '192.168.1.1',
@@ -22,7 +25,10 @@ const Proxy = () => {
   return (
     <div className="min-h-screen">
       <Sidebar />
-      <main className="pl-64">
+      <main className={cn(
+        "transition-all duration-300",
+        isSidebarCollapsed ? "pl-20" : "pl-64"
+      )}>
         <div className="container py-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold">Прокси</h1>

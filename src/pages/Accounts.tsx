@@ -9,8 +9,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { useSettings } from "@/store/settings";
+import { cn } from "@/lib/utils";
 
 const Accounts = () => {
+  const { isSidebarCollapsed } = useSettings();
   const accounts = [
     { 
       phone: '+7 999 123-45-67',
@@ -25,7 +28,10 @@ const Accounts = () => {
   return (
     <div className="min-h-screen">
       <Sidebar />
-      <main className="pl-64">
+      <main className={cn(
+        "transition-all duration-300",
+        isSidebarCollapsed ? "pl-20" : "pl-64"
+      )}>
         <div className="container py-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold">Панель аккаунтов</h1>

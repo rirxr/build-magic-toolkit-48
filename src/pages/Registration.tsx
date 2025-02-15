@@ -4,12 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useSettings } from "@/store/settings";
+import { cn } from "@/lib/utils";
 
 const Registration = () => {
+  const { isSidebarCollapsed } = useSettings();
+
   return (
     <div className="min-h-screen">
       <Sidebar />
-      <main className="pl-64">
+      <main className={cn(
+        "transition-all duration-300",
+        isSidebarCollapsed ? "pl-20" : "pl-64"
+      )}>
         <div className="container py-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold">Авторегистрация</h1>
