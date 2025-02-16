@@ -37,7 +37,7 @@ export const Projects = () => {
           return (
             <div
               key={account.name}
-              className="flex items-center justify-between rounded-lg bg-muted/50 p-4"
+              className="flex items-center justify-between rounded-lg bg-muted/50 p-4 parallax-card"
             >
               <div className="flex items-center gap-3">
                 <Icon className={`h-5 w-5 ${account.color}`} />
