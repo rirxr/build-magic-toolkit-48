@@ -1,3 +1,4 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/rirxr/build-magic-toolkit-48/badge)](https://www.codefactor.io/repository/github/rirxr/build-magic-toolkit-48)
 
 # Welcome to your Lovable project
 
